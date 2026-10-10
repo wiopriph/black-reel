@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: 'Public Sans', sans-serif;
+}
+
+html {
+  background: #030303;
+}
+
+body {
+  min-width: 320px;
+  background: #030303;
+}
+
+::selection {
+  background: rgba(220, 38, 38, 0.45);
+  color: white;
+}

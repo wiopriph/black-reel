@@ -1,0 +1,34 @@
+{
+  "name": "black-reel",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "typecheck": "nuxt typecheck"
+  },
+  "engines": {
+    "node": ">=24.11.0 <25",
+    "npm": ">=11"
+  },
+  "dependencies": {
+    "@iconify-json/lucide": "1.2.139",
+    "@iconify-json/simple-icons": "1.2.98",
+    "@nuxt/ui": "4.11.3",
+    "better-sqlite3": "13.0.3",
+    "nuxt": "4.6.0",
+    "tailwindcss": "4.3.3"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "9.6.0",
+    "@wiopriph/eslint-config": "github:wiopriph/nuxt4-eslint-config#80d7405d6462d6c2d46bb412610b878564f69060",
+    "eslint": "9.39.1",
+    "oxc-parser": "0.153.0",
+    "typescript": "5.9.3",
+    "vue-tsc": "3.3.12"
+  },
+  "packageManager": "npm@11.19.0"
+}
