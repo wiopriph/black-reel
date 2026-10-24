@@ -16,8 +16,7 @@
     {
       "binding": "DB",
       "database_name": "black-reel-db",
-      // Replace with the database_id returned by `npm run db:create` before remote import/deploy.
-      "database_id": "00000000-0000-0000-0000-000000000000"
+      "database_id": "b2a522d2-6cd2-4107-b453-84de107fad7a"
     }
   ]
 }
