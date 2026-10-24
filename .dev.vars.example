@@ -1,0 +1,2 @@
+# Copy to .dev.vars and choose a local password for npm run preview.
+AUTH_PASSWORD="replace-with-your-local-password"
