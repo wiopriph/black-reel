@@ -5,6 +5,9 @@
 .nitro
 .cache
 .claude
+
+# Cloudflare local database and tooling state
+.wrangler
 dist
 
 # Node dependencies

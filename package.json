@@ -5,10 +5,15 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "preview": "nuxt preview",
+    "preview": "wrangler dev",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "deploy": "npm run build && wrangler deploy",
+    "db:create": "wrangler d1 create black-reel-db",
+    "db:export": "node scripts/export-d1.mjs",
+    "db:import:local": "npm run db:export && wrangler d1 execute black-reel-db --local --file=.data/d1-import.sql --yes",
+    "db:import:remote": "npm run db:export && wrangler d1 execute black-reel-db --remote --file=.data/d1-import.sql --yes"
   },
   "engines": {
     "node": ">=24.11.0 <25",
@@ -18,17 +23,17 @@
     "@iconify-json/lucide": "1.2.139",
     "@iconify-json/simple-icons": "1.2.98",
     "@nuxt/ui": "4.11.3",
-    "better-sqlite3": "13.0.3",
     "nuxt": "4.6.0",
     "tailwindcss": "4.3.3"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "9.6.0",
+    "@cloudflare/workers-types": "5.20261024.1",
     "@wiopriph/eslint-config": "github:wiopriph/nuxt4-eslint-config#80d7405d6462d6c2d46bb412610b878564f69060",
     "eslint": "9.39.1",
     "oxc-parser": "0.153.0",
     "typescript": "5.9.3",
-    "vue-tsc": "3.3.12"
+    "vue-tsc": "3.3.12",
+    "wrangler": "4.152.0"
   },
   "packageManager": "npm@11.19.0"
 }

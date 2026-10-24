@@ -1,20 +1,20 @@
-import Database from 'better-sqlite3';
-import { join } from 'node:path';
+import type { D1Database } from '@cloudflare/workers-types';
+import type { H3Event } from 'h3';
 
-
-let client: Database.Database | undefined;
 
 export type SqlValue = string | number | null;
 
-export function useMoviesDb() {
-  if (!client) {
-    client = new Database(join(process.cwd(), 'data/movies.sqlite'), {
-      readonly: true,
-      fileMustExist: true,
+export function useMoviesDb(event: H3Event): D1Database {
+  const db = event.context.cloudflare?.env?.DB as D1Database | undefined;
+
+  if (!db) {
+    throw createError({
+      statusCode: 503,
+      statusMessage: 'D1 binding DB is not configured',
     });
   }
 
-  return client;
+  return db;
 }
 
 export function toPositiveInt(value: unknown, fallback: number, max?: number) {

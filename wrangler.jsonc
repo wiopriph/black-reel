@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "black-reel",
+  "main": ".output/server/index.mjs",
+  "compatibility_date": "2026-06-30",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".output/public"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "black-reel-db",
+      // Replace with the database_id returned by `npm run db:create` before remote import/deploy.
+      "database_id": "00000000-0000-0000-0000-000000000000"
+    }
+  ]
+}

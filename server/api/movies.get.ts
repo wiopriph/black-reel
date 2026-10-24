@@ -11,7 +11,7 @@ import {
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
-  const db = useMoviesDb();
+  const db = useMoviesDb(event);
 
   const q = normalizeQueryValue(query.q);
   const type = normalizeQueryValue(query.type);
@@ -71,7 +71,8 @@ export default defineEventHandler(async (event) => {
     'ORDER BY rank, m.year DESC, m.id DESC' :
     'ORDER BY m.activate_time DESC, m.id DESC';
 
-  const items = db.prepare(`
+  const [itemsResult, totalResult] = await db.batch<Record<string, unknown>>([
+    db.prepare(`
         SELECT
           m.id, m.name, m.origin_name, m.year, m.type, m.age, m.quality,
           m.poster, m.iframe_url, m.kinopoisk_id, m.imdb_id, m.genre_text, m.country_text
@@ -79,12 +80,12 @@ export default defineEventHandler(async (event) => {
         ${whereSql}
         ${orderSql}
         LIMIT ? OFFSET ?
-      `).all(...args, limit, offset) as Record<string, unknown>[];
-  const totalRow = db.prepare(`SELECT count(*) AS total FROM ${from} ${whereSql}`).get(...args) as {
-    total?: number
-  } | undefined;
+      `).bind(...args, limit, offset),
+    db.prepare(`SELECT count(*) AS total FROM ${from} ${whereSql}`).bind(...args),
+  ]);
 
-  const total = Number(totalRow?.total ?? 0);
+  const items = itemsResult!.results;
+  const total = Number(totalResult!.results[0]?.total ?? 0);
 
   return {
     items: items.map(row => rowToMovie(row)),
